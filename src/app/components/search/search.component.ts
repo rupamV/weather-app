@@ -11,19 +11,14 @@ import { WeatherService } from '../../services/weather.service';
 })
 export class SearchComponent {
   searchControl = new FormControl('');
-  constructor(private weatherService: WeatherService) {}
   @Output() searchEvent = new EventEmitter<string>();
+
+  constructor(private weatherService: WeatherService) {}
 
   search() {
     const location = this.searchControl.value?.trim();
     if (location) {
-      this.weatherService.getCurrentWeatherByCity(location).subscribe(
-        (data) => {
-          this.searchEvent.emit(data);
-        },
-      (error: any) => {
-        console.error('Error fetching weather data', error);
-      }
-    );
+      this.searchEvent.emit(location);  // Emit the city name
+    }
   }
-}}
+}

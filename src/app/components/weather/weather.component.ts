@@ -29,7 +29,6 @@ export class WeatherComponent implements OnInit {
       return;
     }
 
-    // Fetch current weather by city name
     this.weatherService.getCurrentWeatherByCity(this.city).subscribe({
       next: (data) => {
         this.currentWeather = data;
@@ -40,15 +39,19 @@ export class WeatherComponent implements OnInit {
       }
     });
 
-    // Fetch weather forecast by city name
     this.weatherService.getForecastByCity(this.city).subscribe({
       next: (data) => {
-        this.forecast = data.list;
+        this.forecast = this.weatherService.processForecastData(data.list); // Use processed forecast data
         this.error = null;
       },
       error: (err) => {
         this.error = err.message;
       }
     });
+  }
+
+  updateWeather(city: string) {
+    this.city = city;
+    this.fetchWeather(); // Refetch the weather when the city is updated
   }
 }
