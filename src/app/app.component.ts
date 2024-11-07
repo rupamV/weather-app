@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-
+import { WeatherService } from './services/weather.service';
+import { WeatherComponent } from './components/weather/weather.component';
+import { SearchComponent } from './components/search/search.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css'],
+  imports: [WeatherComponent,SearchComponent]
 })
 export class AppComponent {
-  title = 'weather-app';
+  title = 'Weather App';
 }
